@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+FIXTURES_PATH = File.expand_path('../fixtures', __dir__).freeze
+
+class FakeApi < Rack::API
+  get "/stats" do
+    response = File.open(File.join(FIXTURES_PATH, 'api_response.json'), 'r') { |f| JSON.parse(f.read) }
+    { data: response }
+  end
+end
